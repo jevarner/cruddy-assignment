@@ -17,16 +17,16 @@ export class SearchMenu extends Component {
   renderInputByType() {
     const type = this.props.searchType;
 
-    return(
-      <Label>
-        <Input
-          type="radio"
-          name="radioId"
-          onChange={}
-        />{' '}
-        {type}
-      </Label>
-    );
+    // return(
+    //   <Label>
+    //     <Input
+    //       type="radio"
+    //       name="radioId"
+    //       onChange={}
+    //     />{' '}
+    //     {type}
+    //   </Label>
+    // );
   }
 
   renderSearchBarByType() {
