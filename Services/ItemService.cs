@@ -34,7 +34,9 @@ namespace MedikeeperAssignment.Services
         {
             var itemList = new List<Item>();
 
-            using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString(azureConnString)))
+            var conn = CreateSqlConnection();
+
+            using (var connection = CreateSqlConnection())
             {
                 connection.Open();
 
@@ -61,7 +63,7 @@ namespace MedikeeperAssignment.Services
         {
             var item = new Item();
 
-            using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString(azureConnString)))
+            using (var connection = CreateSqlConnection())
             {
                 connection.Open();
 
@@ -88,7 +90,7 @@ namespace MedikeeperAssignment.Services
 
         public int CreateNewItem(Item item)
         {
-            using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString(azureConnString)))
+            using (var connection = CreateSqlConnection())
             {
                 connection.Open();
 
@@ -106,7 +108,7 @@ namespace MedikeeperAssignment.Services
 
         public int DeleteItem(Item item)
         {
-            using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString(azureConnString)))
+            using (var connection = CreateSqlConnection())
             {
                 connection.Open();
 
@@ -124,7 +126,7 @@ namespace MedikeeperAssignment.Services
 
         public int UpdateItem(Item item)
         {
-            using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString(azureConnString)))
+            using (var connection = CreateSqlConnection())
             {
                 connection.Open();
 
@@ -157,6 +159,16 @@ namespace MedikeeperAssignment.Services
             }
             
             return cmd;
+        }
+
+        public SqlConnection CreateSqlConnection()
+        {
+            var connBuilder = new SqlConnectionStringBuilder(configuration.GetConnectionString(azureConnString))
+            {
+                Password = configuration["AzurePassword"]
+            };
+
+            return new SqlConnection(connBuilder.ConnectionString);
         }
     }
 }
